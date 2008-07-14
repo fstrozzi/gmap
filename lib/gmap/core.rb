@@ -3,39 +3,41 @@
 # Copyright:: 2008 Francesco Strozzi   
 # License:: The Ruby License
 # 
-# This class allows the parsing of the standard output of Gmap (http://www.gene.com/share/gmap/)
-# 
-# Example: 
-# 
-#   Gmap.open("output.gmap") do |gmap|
-#   
-#     gmap.each_sequence do |seq|
-#     
-#       seq.each do |result|
-#      
-#         result.name (Sequence Name)
-#         result.chr  (Chromosomo name)
-#         result.q_start (Start coordinate of the query sequence) 
-#         result.q_end (End coordinate of the query sequence)
-#         result.start (Start coordintate of the target sequence)
-#         result.end (End coordinate of the target sequence) 
-#         result.strand (Strand of the target sequence) 
-#         result.exons (# exons found) 
-#         result.coverage (Coverage of the query sequence) 
-#         result.perc_identity (Pecentage of identity from the alignment)
-#         result.indels (# insertion or deletions) 
-#         result.mismatch (# mismatch)  
-#         result.aa_change (Prediction of AA changes from mismatches and indels found) 
-#         result.aln (Raw alignment between target and query sequences)
-#     
-#       end
-#   
-#     end
-#   
-#   end
-# 
+
 
 module Gmap
+
+  # This class allows the parsing of the standard output of Gmap (http://www.gene.com/share/gmap/)
+  # 
+  # Example: 
+  # 
+  #   Gmap.open("output.gmap") do |gmap|
+  #   
+  #     gmap.each_sequence do |seq|
+  #     
+  #       seq.each do |result|
+  #      
+  #         result.name (Sequence Name)
+  #         result.chr  (Chromosomo name)
+  #         result.q_start (Start coordinate of the query sequence) 
+  #         result.q_end (End coordinate of the query sequence)
+  #         result.start (Start coordintate of the target sequence)
+  #         result.end (End coordinate of the target sequence) 
+  #         result.strand (Strand of the target sequence) 
+  #         result.exons (# exons found) 
+  #         result.coverage (Coverage of the query sequence) 
+  #         result.perc_identity (Pecentage of identity from the alignment)
+  #         result.indels (# insertion or deletions) 
+  #         result.mismatch (# mismatch)  
+  #         result.aa_change (Prediction of AA changes from mismatches and indels found) 
+  #         result.aln (Raw alignment between target and query sequences)
+  #     
+  #       end
+  #   
+  #     end
+  #   
+  #   end
+  #
 
   class Core
 
@@ -114,11 +116,11 @@ module Gmap
         when />(\S+)\s/
           res.name = "#$1"
         when /Path 1:\s+query\s+(\d+)--(\d+)\s+\(\d+ bp\)\s+=>/
-          res.path = true
+          res.set_path
           res.q_start = "#$1"
           res.q_end = "#$2"
         when /Path 2: query/
-          res.path = false
+          res.set_path
         when /Genomic pos:.*\((.*)\sstrand\)/
           if res.strand.nil?	
             if "#$1"=~/\+/ then
@@ -148,18 +150,18 @@ module Gmap
             res.indels = "#$3"
           end	
         when /Amino acid changes: (.*)/	
-          res.aa_change = "#$1" if res.path == true
-          res.path = false
+          res.aa_change = "#$1" if res.path
+          res.set_path
         when /  Alignment for path \d+:/
-          res.search_aln = true
+          res.set_search
         when /\s+Map hits for path \d+\s+\(1\):/
-          res.maps = true
+          res.set_maps
         when /.*gene_maps\s+\S+:(\d+)..(\d+)\s+(\d+)/	
           if res.maps then	
             res.gene_start = "#$1"
             res.gene_end = "#$2"
             res.gene_id = "#$3"
-            res.maps = false
+            res.set_maps
           end	
         end
 
@@ -173,7 +175,7 @@ module Gmap
 
       if l =~/.*\w+.*:\d+\s[A|T|C|G].+/ then
         res.aln << l+"\n"
-        res.save_aln = true
+        res.set_save
       end
 
       if res.c >= 1 and res.c < 3 then
@@ -182,11 +184,11 @@ module Gmap
 
       if res.c == 3 then
         res.aln.chomp!
-        res.search_aln = false
-        res.save_aln = false
+        res.set_search
+        res.set_save
       end
-      if res.save_aln == true then
-        res.c += 1
+      if res.set_search then
+        res.count
       end
       res
     end
@@ -198,8 +200,9 @@ module Gmap
 
   class Result 
 
-  	attr_accessor :name, :chr, :q_start, :q_end, :start, :end, :strand ,:exons, :coverage, :perc_identity, :indels, :mismatch, :aa_change, :gene_start, :gene_end, :gene_id, :path, :maps, :aln
-
+  	attr_accessor :name, :chr, :q_start, :q_end, :start, :end, :strand ,:exons, :coverage, :perc_identity, :indels, :mismatch, :aa_change, :gene_start, :gene_end, :gene_id, :aln
+    attr_reader: :search_aln, :c, :save_aln, :path, :maps
+    
     def initialize
         clear
     end
@@ -219,19 +222,50 @@ module Gmap
   		@gene_start = nil
   		@gene_end = nil
   		@gene_id = nil
-  		@path = nil
-  		@maps = nil
   		@q_start = nil
-  		@q_end = nil
+  		@q_end = nil 
   		@aln = ""
+  		
+  	# Inizalize control attributes
+  		  		 		
+  		@path = false
+  		@maps = false
   		@search_aln = false
   		@c = 0
   		@save_aln = false
   	end
+  	
+  	def set_search
+  	  if @search_aln then
+  	    @search_aln = false
+  	  else
+  	    @search_aln = true
+  	  end  
+	  end
+	  
+	  def count
+      @c += 1
+    end
+    
+    def set_save
+      if @save_aln then
+        @save_aln = false
+      else
+        @save_aln = true
+      end  
+    end
+    
+    def set_maps
+      if @maps then
+        @maps = false
+      else
+        @maps = true
+      end
+    end
 
   protected
 
-    attr_accessor :search_aln, :c, :save_aln
+    attr_writer :search_aln, :c, :save_aln, :path, :maps
 
   end
 
