@@ -51,12 +51,12 @@ module Gmap
     def self.open(file)
 
       f = File.open(file)
-      if block_given?
-        yield self.new(f)
-        f.close
-      else
-        self.new(f)
-      end
+      #if block_given?
+      #  yield Gmap::Core.new(f)
+      #  f.close
+      #else
+        Gmap::Core.new(f)
+      #end
     end
 
     # Close the IO stream on the gmap file
@@ -202,7 +202,7 @@ module Gmap
   class Result 
 
   	attr_accessor :name, :chr, :q_start, :q_end, :start, :end, :strand ,:exons, :coverage, :perc_identity, :indels, :mismatch, :aa_change, :gene_start, :gene_end, :gene_id, :aln
-    attr_reader: :search_aln, :c, :save_aln, :path, :maps
+    attr_reader :search_aln, :c, :save_aln, :path, :maps
     
     def initialize
         clear

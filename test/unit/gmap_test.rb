@@ -1,15 +1,17 @@
 require 'test/unit'
-require '../../gmap'
+require 'lib/gmap'
 
 class GmapTest < Test::Unit::TestCase
   
   def setup
-    data = '../data/test.gmap'
+    @data = 'samples/test.gmap'
   end
   
   def test_open
-    assert_nothing_raised g = Gmap.open(data)
-    assert_nothing_raised g.close
+    assert_nothing_raised do 
+      g = Gmap::Core.open(@data)
+      g.close
+    end
   end
   
   
