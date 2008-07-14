@@ -89,6 +89,7 @@ module Gmap
         end
         if l=~/Path\s\d+/ and res.chr != nil then
           all_results << res
+          res = Gmap::Result.new
         end  
         res = parse_line(res,l)
       end
