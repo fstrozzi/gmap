@@ -121,9 +121,8 @@ module Gmap
       else 	
         case l
         when /Path \d+:\s+query\s+(\d+)--(\d+)\s+\(\d+ bp\)\s+=>/
-          res.set_path
-          res.q_start = "#$1"
-          res.q_end = "#$2"
+          res.q_start = "#$1".to_i
+          res.q_end = "#$2".to_i
         when /Genomic pos:.*\((.*)\sstrand\)/
           if res.strand.nil?	
             if "#$1"=~/\+/ then
@@ -133,46 +132,44 @@ module Gmap
             end
           end
         when /Accessions:\s+(.*):(.*)--(.*)\s+\(out of.*/
-          if res.path then
             res.target = "#$1"
-            res.start = "#$2"
-            res.end = "#$3"
-            res.start.gsub!(/,/,'')
-            res.end.gsub!(/,/,'')
-          end
+            t_start = "#$2"
+            t_end = "#$3"
+            t_start.gsub!(/,/,'')
+            t_end.gsub!(/,/,'')
+            res.start = t_start.to_i
+            res.end = t_end.to_i
         when /Number of exons: (\d+)/
           if res.exons.nil?
-            res.exons = "#$1"
+            res.exons = "#$1".to_i
           end	
         when /Trimmed coverage:\s(.*)\s\(trimmed length/
-          res.coverage = "#$1" if res.coverage.nil?
+          res.coverage = "#$1".to_f if res.coverage.nil?
         when /Percent identity:\s(.*)\s\(\d+ matches, (\d+) mismatches, (\d+) indels,/
           if res.perc_identity.nil?	
-            res.perc_identity = "#$1"
-            res.mismatch = "#$2"
-            res.indels = "#$3"
+            res.perc_identity = "#$1".to_f
+            res.mismatch = "#$2".to_f
+            res.indels = "#$3".to_f
           end	
         when /Amino acid changes: (.*)/	
-          res.aa_change = "#$1" if res.path
-          #res.set_path
+          res.aa_change = "#$1" 
         when /  Alignment for path \d+:/
           res.set_search
         when /\s+Map hits for path \d+\s+\(1\):/
           res.set_maps
         when /.*gene_maps\s+\S+:(\d+)..(\d+)\s+(\d+)/	
           if res.maps then	
-            res.gene_start = "#$1"
-            res.gene_end = "#$2"
-            res.gene_id = "#$3"
+            res.gene_start = "#$1".to_f
+            res.gene_end = "#$2".to_f
+            res.gene_id = "#$3".to_f
             res.set_maps
           end	
         end
-
       end
       res
     end
 
-    # The method is called from 'parse_line', to save the sequence alignment information from the gmap output 
+    # The method is called from 'parse_line' to save the sequence alignment information from the gmap output 
 
     def get_aln(res,l)
       
@@ -184,7 +181,8 @@ module Gmap
       if res.c >= 1 and res.c < 3 then
         res.aln << l+"\n"
       end
-
+      res.aln << l+"\n" if l=~/aa.g/
+      res.aln << l+"\n" if l=~/aa.c/
       if res.c == 3 then
         res.aln.chomp!
         res.set_search
@@ -204,7 +202,7 @@ module Gmap
   class Result 
 
   	attr_accessor :query, :target, :q_start, :q_end, :start, :end, :strand ,:exons, :coverage, :perc_identity, :indels, :mismatch, :aa_change, :gene_start, :gene_end, :gene_id, :aln
-    attr_reader :search_aln, :c, :save_aln, :path, :maps
+    attr_reader :search_aln, :c, :save_aln, :maps
     
     def initialize
         clear
@@ -231,20 +229,11 @@ module Gmap
   		
   	# Inizalize control attributes
   		  		 		
-  		@path = false
   		@maps = false
   		@search_aln = false
   		@save_aln = false
   		@c = 0
   	end
-  	
-  	def set_path
-  	  if @path then
-  	    @path = false
-	    else
-	      @path = true
-      end
-	  end
   	
   	def set_search
   	  if @search_aln then
