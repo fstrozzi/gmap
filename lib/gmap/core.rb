@@ -11,7 +11,7 @@ module Gmap
   # 
   # Example: 
   # 
-  #   Gmap.open("output.gmap") do |gmap|
+  #   Gmap::Core.open("output.gmap") do |gmap|
   #   
   #     gmap.each_sequence do |seq|
   #     
@@ -154,7 +154,7 @@ module Gmap
           end	
         when /Amino acid changes: (.*)/	
           res.aa_change = "#$1" if res.path
-          res.set_path
+          #res.set_path
         when /  Alignment for path \d+:/
           res.set_search
         when /\s+Map hits for path \d+\s+\(1\):/
@@ -175,10 +175,10 @@ module Gmap
     # The method is called from 'parse_line', to save the sequence alignment information from the gmap output 
 
     def get_aln(res,l)
-
-      if l =~/.*\w+.*:\d+\s[A|T|C|G].+/ then
+      
+      if l =~/.*:\d+\s[A|T|C|G].+/ then
         res.aln << l+"\n"
-        res.set_save
+        res.set_save        
       end
 
       if res.c >= 1 and res.c < 3 then
@@ -190,7 +190,7 @@ module Gmap
         res.set_search
         res.set_save
       end
-      if res.set_search then
+      if res.search_aln and res.save_aln then
         res.count
       end
       res
@@ -234,8 +234,8 @@ module Gmap
   		@path = false
   		@maps = false
   		@search_aln = false
-  		@c = 0
   		@save_aln = false
+  		@c = 0
   	end
   	
   	def set_path
@@ -254,16 +254,17 @@ module Gmap
   	  end  
 	  end
 	  
+	  
+  	def set_save
+  	  if @save_aln then
+  	    @save_aln = false
+  	  else
+  	    @save_aln = true
+  	  end  
+	  end
+	  
 	  def count
       @c += 1
-    end
-    
-    def set_save
-      if @save_aln then
-        @save_aln = false
-      else
-        @save_aln = true
-      end  
     end
     
     def set_maps
@@ -276,7 +277,7 @@ module Gmap
 
   protected
 
-    attr_writer :search_aln, :c, :save_aln, :path, :maps
+    attr_writer :search_aln, :c, :path, :maps
 
   end
 
