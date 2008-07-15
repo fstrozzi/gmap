@@ -17,8 +17,8 @@ module Gmap
   #     
   #       seq.each do |result|
   #      
-  #         result.name (Sequence Name)
-  #         result.chr  (Chromosomo name)
+  #         result.query (Query sequence name)
+  #         result.target  (Target sequence name)
   #         result.q_start (Start coordinate of the query sequence) 
   #         result.q_end (End coordinate of the query sequence)
   #         result.start (Start coordintate of the target sequence)
@@ -51,15 +51,15 @@ module Gmap
     def self.open(file)
 
       f = File.open(file)
-      #if block_given?
-      #  yield Gmap::Core.new(f)
-      #  f.close
-      #else
+      if block_given?
+        yield Gmap::Core.new(f)
+        f.close
+      else
         Gmap::Core.new(f)
-      #end
+      end
     end
 
-    # Close the IO stream on the gmap file
+    # Close the IO stream on the Gmap file
 
     def close
       @io.close
@@ -73,32 +73,38 @@ module Gmap
       start = false
       res = Gmap::Result.new
       all_results = []
+      query = nil
       @io.each_line do |l|
         if l=~/>>>.*/ 
-
-        elsif l=~/>\S+/ and !start then 
-          start = true	                          
-        elsif l=~/>\S+/ and start then
+            # this avoid taking a splitted alignment line as the start of a new sequence
+        elsif l=~/>(\S+)\s/ and !start then 
+          start = true
+          query = "#$1"                          
+        elsif l=~/>(\S+)\s/ and start then
+          res.query = query
+          all_results << res.dup if res.target != nil
+          query = "#$1"
           if block_given?
             yield all_results
           else
-            all_results
+            raise ArgumentError, "This method requires a block"
           end 
           all_results.clear
           res.clear      
-        end
-        if l=~/Path\s\d+/ and res.chr != nil then
-          all_results << res
-          res = Gmap::Result.new
+        elsif l=~/Path\s\d+/ and res.target != nil then
+          res.query = query
+          all_results << res.dup
+          res.clear
         end  
         res = parse_line(res,l)
       end
       if start then
-        all_results << res if res.chr != nil
+        res.query = query
+        all_results << res.dup if res.target != nil
         if block_given?
           yield all_results
         else
-          all_results
+          raise ArgumentError, "This method requires a block"
         end
       end
     end
@@ -110,18 +116,14 @@ module Gmap
 
     def parse_line(res,l)
       l.chomp!
-      if res.search_aln == true then
+      if res.search_aln then
         res = get_aln(res,l)
       else 	
         case l
-        when />(\S+)\s/
-          res.name = "#$1"
-        when /Path 1:\s+query\s+(\d+)--(\d+)\s+\(\d+ bp\)\s+=>/
+        when /Path \d+:\s+query\s+(\d+)--(\d+)\s+\(\d+ bp\)\s+=>/
           res.set_path
           res.q_start = "#$1"
           res.q_end = "#$2"
-        when /Path 2: query/
-          res.set_path
         when /Genomic pos:.*\((.*)\sstrand\)/
           if res.strand.nil?	
             if "#$1"=~/\+/ then
@@ -132,7 +134,7 @@ module Gmap
           end
         when /Accessions:\s+(.*):(.*)--(.*)\s+\(out of.*/
           if res.path then
-            res.chr = "#$1"
+            res.target = "#$1"
             res.start = "#$2"
             res.end = "#$3"
             res.start.gsub!(/,/,'')
@@ -201,7 +203,7 @@ module Gmap
 
   class Result 
 
-  	attr_accessor :name, :chr, :q_start, :q_end, :start, :end, :strand ,:exons, :coverage, :perc_identity, :indels, :mismatch, :aa_change, :gene_start, :gene_end, :gene_id, :aln
+  	attr_accessor :query, :target, :q_start, :q_end, :start, :end, :strand ,:exons, :coverage, :perc_identity, :indels, :mismatch, :aa_change, :gene_start, :gene_end, :gene_id, :aln
     attr_reader :search_aln, :c, :save_aln, :path, :maps
     
     def initialize
@@ -209,8 +211,8 @@ module Gmap
     end
     # Initializes all the attributes of the result
   	def clear
-  		@name = nil
-  		@chr = nil
+  		@query = nil
+  		@target = nil
   		@start = nil
   		@end = nil
   		@strand = nil
@@ -235,6 +237,14 @@ module Gmap
   		@c = 0
   		@save_aln = false
   	end
+  	
+  	def set_path
+  	  if @path then
+  	    @path = false
+	    else
+	      @path = true
+      end
+	  end
   	
   	def set_search
   	  if @search_aln then

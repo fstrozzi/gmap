@@ -14,5 +14,13 @@ class GmapTest < Test::Unit::TestCase
     end
   end
   
+  def test_result
+    Gmap::Core.open(@data) do |g|
+      g.each_sequence do |seq|
+        assert_equal 3,seq.size
+      end
+    end
+  end
+  
   
 end
