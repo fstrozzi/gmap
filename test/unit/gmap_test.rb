@@ -120,6 +120,9 @@ class GmapTest < Test::Unit::TestCase
     assert_match(/GGACAGGGCAGCTACTCGGCGCCGACGCTGACAG/,seq[2].aln)
     assert_match(/GGACAGGGCAGCTACTCGGCGCCGACGCCGACAG/,seq[2].aln)
     assert_match(/G  Q  G  S  Y  S  A  P  T  P  T/,seq[2].aln)
+    assert_equal 59868962,seq[2].gene_start
+    assert_equal 60041116,seq[2].gene_end
+    assert_equal 538371,seq[2].gene_id
   end
   
 end
