@@ -85,11 +85,11 @@ module Gmap
             # this avoid taking a splitted alignment line as the start of a new sequence
         elsif l=~/>(\S+)\s/ and !start then 
           start = true
-          query = "#$1"                          
+          query = "#{$1}"                          
         elsif l=~/>(\S+)\s/ and start then
           res.query = query
           all_results << res.dup if res.target != nil
-          query = "#$1"
+          query = "#{$1}"
           if block_given?
             yield all_results
           else
@@ -127,47 +127,48 @@ module Gmap
       else 	
         case l
         when /Path \d+:\s+query\s+(\d+)--(\d+)\s+\(\d+ bp\)\s+=>/
-          res.q_start = "#$1".to_i
-          res.q_end = "#$2".to_i
+          res.q_start = "#{$1}".to_i
+          res.q_end = "#{$2}".to_i
         when /Genomic pos:.*\((.*)\sstrand\)/
           if res.strand.nil?	
-            if "#$1"=~/\+/ then
-              res.strand = '1'
+            if "#{$1}"=~/\+/ then
+              res.strand = 1
             else 
-              res.strand = '-1'
+              res.strand = -1
             end
           end
         when /Accessions:\s+(.*):(.*)--(.*)\s+\(out of.*/
-            res.target = "#$1"
-            t_start = "#$2"
-            t_end = "#$3"
+            res.target = "#{$1}"
+            t_start = "#{$2}"
+            t_end = "#{$3}"
             t_start.gsub!(/,/,'')
             t_end.gsub!(/,/,'')
             res.start = t_start.to_i
             res.end = t_end.to_i
         when /Number of exons: (\d+)/
           if res.exons.nil?
-            res.exons = "#$1".to_i
+            res.exons = "#{$1}".to_i
           end	
         when /Trimmed coverage:\s(.*)\s\(trimmed length/
           res.coverage = "#$1".to_f if res.coverage.nil?
         when /Percent identity:\s(.*)\s\(\d+ matches, (\d+) mismatches, (\d+) indels,/
           if res.perc_identity.nil?	
-            res.perc_identity = "#$1".to_f
-            res.mismatch = "#$2".to_f
-            res.indels = "#$3".to_f
+            res.perc_identity = "#{$1}".to_f
+            res.mismatch = "#{$2}".to_f
+            res.indels = "#{$3}".to_f
           end	
         when /Amino acid changes: (.*)/	
-          res.aa_change = "#$1" 
+          aa = "#{$1}"
+          res.aa_change = aa if aa.to_s=~/\w+/
         when /  Alignment for path \d+:/
           res.set_search
         when /\s+Map hits for path \d+\s+\(1\):/
           res.set_maps
         when /.*gene_maps\s+\S+:(\d+)..(\d+)\s+(\d+)/	
           if res.maps then	
-            res.gene_start = "#$1".to_f
-            res.gene_end = "#$2".to_f
-            res.gene_id = "#$3".to_f
+            res.gene_start = "#{$1}".to_f
+            res.gene_end = "#{$2}".to_f
+            res.gene_id = "#{$3}".to_f
             res.set_maps
           end	
         end

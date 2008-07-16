@@ -1,4 +1,4 @@
->bt1_3_5 
+>FIRST
 Paths (8):
   Path 1: query 14--26 (13 bp) => chr ENSBTAT00000028007:11,489--11,477 (-13 bp)
     cDNA direction: indeterminate
@@ -66,7 +66,7 @@ Alignments:
                          ||||||||||||||
                       18 GAAATCTTGACTGA
 
->bt1_4_9053055 
+>SECOND 
 Paths (37):
   Path 1: query 12--26 (15 bp) => chr chr17:21,154,442--21,154,428 (-15 bp)
     cDNA direction: indeterminate
