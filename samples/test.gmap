@@ -65,70 +65,84 @@ Alignments:
  +ENSBTAT00000044819:611 GAAATCTTGACTGA
                          ||||||||||||||
                       18 GAAATCTTGACTGA
->bt1_3_5 
-Paths (8):
-  Path 1: query 14--26 (13 bp) => chr ENSBTAT00000028007:11,489--11,477 (-13 bp)
+
+>bt1_4_9053055 
+Paths (37):
+  Path 1: query 12--26 (15 bp) => chr chr17:21,154,442--21,154,428 (-15 bp)
     cDNA direction: indeterminate
-    Genomic pos: cow_trans:38,344,745--38,344,733 (- strand)
-    Accessions: ENSBTAT00000028007:11,477--11,489 (out of 16907 bp)
+    Genomic pos: bt3.1:609,940,407--609,940,393 (- strand)
+    Accessions: chr17:21,154,428--21,154,442 (out of 70149481 bp)
     Number of exons: 1
-    Coverage: 36.1 (query length: 36 bp)
-    Trimmed coverage: 36.1 (trimmed length: 36 bp, trimmed region: 1..36)
-    Percent identity: 100.0 (13 matches, 0 mismatches, 0 indels, 0 unknowns)
+    Coverage: 41.7 (query length: 36 bp)
+    Trimmed coverage: 41.7 (trimmed length: 36 bp, trimmed region: 1..36)
+    Percent identity: 100.0 (15 matches, 0 mismatches, 0 indels, 0 unknowns)
     Amino acid changes: 
 
 Alignments:
   Alignment for path 1:
 
-    -ENSBTAT00000028007:11489-11477  (14-26)   100%
+    -chr17:21154442-21154428  (12-26)   100%
 
-                         0     .    :   
-                                        
- -ENSBTAT00000028007:11489 CTTCGTATTGCTG
-                           |||||||||||||
-                        14 CTTCGTATTGCTG
-                                        
+               0     .    :    .
+                                
+ -chr17:21154442 TTCGTATACCGTATT
+                 |||||||||||||||
+              12 TTCGTATACCGTATT
+                                
 
-  Path 2: query 1--36 (36 bp) => chr ENSBTAT00000042528:264--229 (-36 bp)
+Maps:
+  Map hits for path 1 (0):
+
+  Path 2: query 9--27 (19 bp) => chr chr11:99,537,167--99,537,185 (19 bp)
     cDNA direction: indeterminate
-    Genomic pos: cow_trans:264--229 (- strand)
-    Accessions: ENSBTAT00000042528:229--264 (out of 957 bp)
+    Genomic pos: bt3.1:195,355,821--195,355,839 (+ strand)
+    Accessions: chr11:99,537,167--99,537,185 (out of 101635058 bp)
     Number of exons: 1
-    Coverage: 100.0 (query length: 36 bp)
-    Trimmed coverage: 100.0 (trimmed length: 36 bp, trimmed region: 1..36)
-    Percent identity: 97.2 (35 matches, 1 mismatches, 0 indels, 0 unknowns)
-    Translation: 2..34 (11 aa)
-    Amino acid changes: K10T [28]
+    Coverage: 52.8 (query length: 36 bp)
+    Trimmed coverage: 52.8 (trimmed length: 36 bp, trimmed region: 1..36)
+    Percent identity: 94.7 (18 matches, 1 mismatches, 0 indels, 0 unknowns)
+    Amino acid changes: 
 
 Alignments:
   Alignment for path 2:
 
-    -ENSBTAT00000042528:264-229  (1-36)   97%
+    +chr11:99537167-99537185  (9-27)   94%
 
-                       0     .    :    .    :    .    :    . 
-aa.g                   1  G  I  H  M  V  K  A  R  P  K  A    
- -ENSBTAT00000042528:264 GGGAATTCACATGGTTAAGGCTAGGCCTAAAGCTAT
-                         ||||||||||||||||||||||||||||| ||||||
-                       1 GGGAATTCACATGGTTAAGGCTAGGCCTACAGCTAT
-aa.c                   1  G  I  H  M  V  K  A  R  P  T  A    
+               0     .    :    .    
+                                    
+ +chr11:99537167 AGGCATGCATGGCCCGAAC
+                 | |||||||||||||||||
+               9 ACGCATGCATGGCCCGAAC
+                                    
 
-  Path 3: query 18--31 (14 bp) => chr ENSBTAT00000044819:611--624 (14 bp)
+Maps:
+  Map hits for path 2 (1):
+    gene_maps   chr11:3711585..3721335  788340
+
+  Path 3: query 1--34 (34 bp) => chr chr8:60,003,992--60,004,025 (34 bp)
     cDNA direction: indeterminate
-    Genomic pos: cow_trans:30,682,928--30,682,941 (+ strand)
-    Accessions: ENSBTAT00000044819:611--624 (out of 1972 bp)
+    Genomic pos: bt3.1:2,195,593,396--2,195,593,429 (+ strand)
+    Accessions: chr8:60,003,992--60,004,025 (out of 103714391 bp)
     Number of exons: 1
-    Coverage: 38.9 (query length: 36 bp)
-    Trimmed coverage: 38.9 (trimmed length: 36 bp, trimmed region: 1..36)
-    Percent identity: 100.0 (14 matches, 0 mismatches, 0 indels, 0 unknowns)
-    Amino acid changes: 
+    Coverage: 94.4 (query length: 36 bp)
+    Trimmed coverage: 94.4 (trimmed length: 36 bp, trimmed region: 1..36)
+    Percent identity: 97.1 (33 matches, 1 mismatches, 0 indels, 0 unknowns)
+    Translation: 1..33 (11 aa)
+    Amino acid changes: L10P [27]
 
 Alignments:
   Alignment for path 3:
 
-    +ENSBTAT00000044819:611-624  (18-31)   100%
+    +chr8:60003992-60004025  (1-34)   97%
 
-                       0     .    :    
-                                       
- +ENSBTAT00000044819:611 GAAATCTTGACTGA
-                         ||||||||||||||
-                      18 GAAATCTTGACTGA
+              0     .    :    .    :    .    :    
+aa.g          1 G  Q  G  S  Y  S  A  P  T  L  T   
+ +chr8:60003992 GGACAGGGCAGCTACTCGGCGCCGACGCTGACAG
+                |||||||||||||||||||||||||||| |||||
+              1 GGACAGGGCAGCTACTCGGCGCCGACGCCGACAG
+aa.c          1 G  Q  G  S  Y  S  A  P  T  P  T   
+
+Maps:
+  Map hits for path 3 (1):
+    gene_maps   chr10:59868962..60041116        538371
+

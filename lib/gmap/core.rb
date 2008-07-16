@@ -1,13 +1,14 @@
 
-# Author:: Francesco Strozzi, francesco.strozzi@gmail.com
+# Author:: Francesco Strozzi
+# Email:: francesco.strozzi@gmail.com
 # Copyright:: 2008 Francesco Strozzi   
 # License:: The Ruby License
-# 
+
 
 
 module Gmap
 
-  # This class allows the parsing of the standard output of Gmap (http://www.gene.com/share/gmap/)
+  # This module allows the parsing of the standard output of Gmap (http://www.gene.com/share/gmap/)
   # 
   # Example: 
   # 
@@ -31,7 +32,12 @@ module Gmap
   #         result.mismatch (# mismatch)  
   #         result.aa_change (Prediction of AA changes from mismatches and indels found) 
   #         result.aln (Raw alignment between target and query sequences)
-  #     
+  #         
+  #         ONLY IF GENE MAPS ARE USED WITH GMAP
+  #
+  #         result.gene_start (Start coordinate of the overlapping gene)
+  #         result.gene_end (End coordinate of the overlapping gene)
+  #         result.gene_id (ID of the overlapping gene)
   #       end
   #   
   #     end
