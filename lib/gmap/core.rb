@@ -76,6 +76,46 @@ module Gmap
 
 
     def each_sequence
+<<<<<<< Updated upstream:lib/gmap/core.rb
+=======
+      start = false
+      res = Gmap::Result.new
+      all_results = []
+      query = nil
+      @io.each_line do |l|
+       if l !~/>>>.*/ then 
+         if l=~/>(\S+)\s/ and !start then 
+           start = true
+           query = "#{$1}"                          
+         elsif l=~/>(\S+)\s/ and start then
+           res.query = query
+           all_results << res.dup if res.target != nil
+           query = "#{$1}"
+           if block_given?
+             yield all_results
+           else
+             raise ArgumentError, "This method requires a block"
+           end 
+           all_results.clear
+           res.clear      
+         elsif l=~/Path\s\d+/ and res.target != nil then
+           res.query = query
+           all_results << res.dup
+           res.clear
+         end
+       end    
+        res = parse_line(res,l)
+      end
+      if start then
+        res.query = query
+        all_results << res.dup if res.target != nil
+        if block_given?
+          yield all_results
+        else
+          raise ArgumentError, "This method requires a block"
+        end
+      end
+>>>>>>> Stashed changes:lib/gmap/core.rb
     end
 
     private
