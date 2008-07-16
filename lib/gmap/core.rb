@@ -76,43 +76,6 @@ module Gmap
 
 
     def each_sequence
-      start = false
-      res = Gmap::Result.new
-      all_results = []
-      query = nil
-      @io.each_line do |l|
-        if l=~/>>>.*/ 
-            # this avoid taking a splitted alignment line as the start of a new sequence
-        elsif l=~/>(\d+|\w+)\s/ and !start then 
-          start = true
-          query = "#{$1}"                          
-        elsif l=~/>(\d+|\w+)\s/ and start then
-          res.query = query
-          all_results << res.dup if res.target != nil
-          query = "#{$1}"
-          if block_given?
-            yield all_results
-          else
-            raise ArgumentError, "This method requires a block"
-          end 
-          all_results.clear
-          res.clear      
-        elsif l=~/Path\s\d+/ and res.target != nil then
-          res.query = query
-          all_results << res.dup
-          res.clear
-        end  
-        res = parse_line(res,l)
-      end
-      if start then
-        res.query = query
-        all_results << res.dup if res.target != nil
-        if block_given?
-          yield all_results
-        else
-          raise ArgumentError, "This method requires a block"
-        end
-      end
     end
 
     private
@@ -154,8 +117,8 @@ module Gmap
         when /Percent identity:\s(.*)\s\(\d+ matches, (\d+) mismatches, (\d+) indels,/
           if res.perc_identity.nil?	
             res.perc_identity = "#{$1}".to_f
-            res.mismatch = "#{$2}".to_f
-            res.indels = "#{$3}".to_f
+            res.mismatch = "#{$2}".to_i
+            res.indels = "#{$3}".to_i
           end	
         when /Amino acid changes: (.*)/	
           aa = "#{$1}"
