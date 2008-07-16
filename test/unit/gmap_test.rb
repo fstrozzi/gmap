@@ -104,25 +104,25 @@ class GmapTest < Test::Unit::TestCase
     assert_match(/AGGCATGCATGGCCCGAAC/,seq[1].aln)
     assert_match(/ACGCATGCATGGCCCGAAC/,seq[1].aln)
     # third result
-    assert_equal 'chr8',seq[2].target
-    assert_equal 94.4, seq[2].coverage
-    assert_equal 97.1, seq[2].perc_identity
-    assert_equal 1, seq[2].mismatch
+    assert_equal 'chr22',seq[2].target
+    assert_equal 100.0, seq[2].coverage
+    assert_equal 100.0, seq[2].perc_identity
+    assert_equal 0, seq[2].mismatch
     assert_equal 0, seq[2].indels
     assert_equal 1, seq[2].q_start
-    assert_equal 34, seq[2].q_end
-    assert_equal 1, seq[2].strand
-    assert_equal 60003992, seq[2].start
-    assert_equal 60004025, seq[2].end
-    assert_equal 1, seq[2].exons
-    assert_equal 'L10P [27]', seq[2].aa_change
-    assert_match(/G  Q  G  S  Y  S  A  P  T  L  T/,seq[2].aln)
-    assert_match(/GGACAGGGCAGCTACTCGGCGCCGACGCTGACAG/,seq[2].aln)
-    assert_match(/GGACAGGGCAGCTACTCGGCGCCGACGCCGACAG/,seq[2].aln)
-    assert_match(/G  Q  G  S  Y  S  A  P  T  P  T/,seq[2].aln)
+    assert_equal 36, seq[2].q_end
+    assert_equal -1, seq[2].strand
+    assert_equal 57923909, seq[2].start
+    assert_equal 57926444, seq[2].end
+    assert_equal 2, seq[2].exons
+    assert_equal nil, seq[2].aa_change
+    assert_match(/R  A  P  R  R  A  G           E  G  R  G  \*/,seq[2].aln)
+    assert_match(/CGCGCACCTCGGCGTGCAGGTG\.\.\.CAGGTGAAGGGAGAGGATGA/,seq[2].aln)
+    assert_match(/CGCGCACCTCGGCGTGCAG  2500   GTGAAGGGAGAGGATGA/,seq[2].aln)
     assert_equal 59868962,seq[2].gene_start
     assert_equal 60041116,seq[2].gene_end
     assert_equal 538371,seq[2].gene_id
+    puts seq[2].aln
   end
   
 end
