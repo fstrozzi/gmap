@@ -119,30 +119,31 @@ Maps:
   Map hits for path 2 (1):
     gene_maps   chr11:3711585..3721335  788340
 
-  Path 3: query 1--34 (34 bp) => chr chr8:60,003,992--60,004,025 (34 bp)
+  Path 3: query 1--36 (36 bp) => chr chr22:57,923,909--57,926,444 (36 bp)
     cDNA direction: indeterminate
-    Genomic pos: bt3.1:2,195,593,396--2,195,593,429 (+ strand)
-    Accessions: chr8:60,003,992--60,004,025 (out of 103714391 bp)
-    Number of exons: 1
-    Coverage: 94.4 (query length: 36 bp)
-    Trimmed coverage: 94.4 (trimmed length: 36 bp, trimmed region: 1..36)
-    Percent identity: 97.1 (33 matches, 1 mismatches, 0 indels, 0 unknowns)
-    Translation: 1..33 (11 aa)
-    Amino acid changes: L10P [27]
+	Genomic pos: bt3.1:1,120,956,262--1,120,953,727 (- strand)
+	Accessions: chr22:57,923,909--57,926,444 (out of 59883977 bp)
+	Number of exons: 2
+	Coverage: 100.0 (query length: 36 bp)
+	Trimmed coverage: 100.0 (trimmed length: 36 bp, trimmed region: 1..36)
+	Percent identity: 100.0 (36 matches, 0 mismatches, 0 indels, 0 unknowns)
+	Translation: 1..36 (11 aa)
+	Amino acid changes: 
 
 Alignments:
-  Alignment for path 3:
+	Alignment for path 1:
 
-    +chr8:60003992-60004025  (1-34)   97%
+	  -chr22:57926444-57926426  (1-19)   100% ->   ...2500...
+	  -chr22:57923925-57923909  (20-36)   100%
 
-              0     .    :    .    :    .    :    
-aa.g          1 G  Q  G  S  Y  S  A  P  T  L  T   
- +chr8:60003992 GGACAGGGCAGCTACTCGGCGCCGACGCTGACAG
-                |||||||||||||||||||||||||||| |||||
-              1 GGACAGGGCAGCTACTCGGCGCCGACGCCGACAG
-aa.c          1 G  Q  G  S  Y  S  A  P  T  P  T   
+	               0     .    :    .    :    .    :    .    :    .
+	aa.g           1 R  A  P  R  R  A  G           E  G  R  G  *  
+	 -chr22:57926444 CGCGCACCTCGGCGTGCAGGTG...CAGGTGAAGGGAGAGGATGA
+	                 |||||||||||||||||||>>>...>>>|||||||||||||||||
+	               1 CGCGCACCTCGGCGTGCAG  2500   GTGAAGGGAGAGGATGA
+	aa.c           1 R  A  P  R  R  A  G           E  G  R  G  *  
 
 Maps:
-  Map hits for path 3 (1):
-    gene_maps   chr10:59868962..60041116        538371
+  Map hits for path 1 (1):
+    gene_maps   chr10:57912718..57926714        507939
 
