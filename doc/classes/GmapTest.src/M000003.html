@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_result (GmapTest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/unit/gmap_test.rb, line 17</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_result</span>
+    <span class="ruby-constant">Gmap</span><span class="ruby-operator">::</span><span class="ruby-constant">Core</span>.<span class="ruby-identifier">open</span>(<span class="ruby-ivar">@data</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">g</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">g</span>.<span class="ruby-identifier">each_sequence</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">seq</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">3</span>,<span class="ruby-identifier">seq</span>.<span class="ruby-identifier">size</span>
+        <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'Array'</span>,<span class="ruby-identifier">seq</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>
+        <span class="ruby-identifier">check_first</span>(<span class="ruby-identifier">seq</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">seq</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">query</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'FIRST'</span>
+        <span class="ruby-identifier">check_second</span>(<span class="ruby-identifier">seq</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">seq</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">query</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'SECOND'</span>  
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

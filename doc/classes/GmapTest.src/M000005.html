@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>check_second (GmapTest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/unit/gmap_test.rb, line 76</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">check_second</span>(<span class="ruby-identifier">seq</span>)
+    <span class="ruby-comment cmt"># first result</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'chr17'</span>,<span class="ruby-identifier">seq</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">target</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">41.7</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">coverage</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">100.0</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">perc_identity</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">0</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">mismatch</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">0</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">indels</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">12</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">q_start</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">26</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">q_end</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">-1</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">strand</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">21154428</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">start</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">21154442</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">end</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">1</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">exons</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">aa_change</span>
+    <span class="ruby-identifier">assert_match</span>(<span class="ruby-regexp re">/TTCGTATACCGTATT/</span>,<span class="ruby-identifier">seq</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">aln</span>)
+    <span class="ruby-comment cmt"># second result</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'chr11'</span>,<span class="ruby-identifier">seq</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">target</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">52.8</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">coverage</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">94.7</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">perc_identity</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">1</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">mismatch</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">0</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">indels</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">9</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">q_start</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">27</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">q_end</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">1</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">strand</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">99537167</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">start</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">99537185</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">end</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">1</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">exons</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">aa_change</span>
+    <span class="ruby-identifier">assert_match</span>(<span class="ruby-regexp re">/AGGCATGCATGGCCCGAAC/</span>,<span class="ruby-identifier">seq</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">aln</span>)
+    <span class="ruby-identifier">assert_match</span>(<span class="ruby-regexp re">/ACGCATGCATGGCCCGAAC/</span>,<span class="ruby-identifier">seq</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">aln</span>)
+    <span class="ruby-comment cmt"># third result</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'chr22'</span>,<span class="ruby-identifier">seq</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">target</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">100.0</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">coverage</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">100.0</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">perc_identity</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">0</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">mismatch</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">0</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">indels</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">1</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">q_start</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">36</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">q_end</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">-1</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">strand</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">57923909</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">start</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">57926444</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">end</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">2</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">exons</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">seq</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">aa_change</span>
+    <span class="ruby-identifier">assert_match</span>(<span class="ruby-regexp re">/R  A  P  R  R  A  G           E  G  R  G  \*/</span>,<span class="ruby-identifier">seq</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">aln</span>)
+    <span class="ruby-identifier">assert_match</span>(<span class="ruby-regexp re">/CGCGCACCTCGGCGTGCAGGTG\.\.\.CAGGTGAAGGGAGAGGATGA/</span>,<span class="ruby-identifier">seq</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">aln</span>)
+    <span class="ruby-identifier">assert_match</span>(<span class="ruby-regexp re">/CGCGCACCTCGGCGTGCAG  2500   GTGAAGGGAGAGGATGA/</span>,<span class="ruby-identifier">seq</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">aln</span>)
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">57912718</span>,<span class="ruby-identifier">seq</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">gene_start</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">57926714</span>,<span class="ruby-identifier">seq</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">gene_end</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">507939</span>,<span class="ruby-identifier">seq</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">gene_id</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>
