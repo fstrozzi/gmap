@@ -76,25 +76,22 @@ module Gmap
 
 
     def each_sequence
-<<<<<<< Updated upstream:lib/gmap/core.rb
-=======
       start = false
       res = Gmap::Result.new
       all_results = []
       query = nil
-      @io.each_line do |l|
-       if l !~/>>>.*/ then 
-         if l=~/>(\S+)\s/ and !start then 
+      @io.each_line do |l| 
+         if l=~/>(\d+|\w+)\s/ and !start then 
            start = true
            query = "#{$1}"                          
-         elsif l=~/>(\S+)\s/ and start then
+         elsif l=~/>(\d+|\w+)\s/ and start then
            res.query = query
            all_results << res.dup if res.target != nil
            query = "#{$1}"
            if block_given?
              yield all_results
            else
-             raise ArgumentError, "This method requires a block"
+             raise ArgumentError, "Block needed"
            end 
            all_results.clear
            res.clear      
@@ -102,9 +99,8 @@ module Gmap
            res.query = query
            all_results << res.dup
            res.clear
-         end
-       end    
-        res = parse_line(res,l)
+         end    
+         res = parse_line(res,l)
       end
       if start then
         res.query = query
@@ -112,10 +108,9 @@ module Gmap
         if block_given?
           yield all_results
         else
-          raise ArgumentError, "This method requires a block"
+          raise ArgumentError, "Block needed"
         end
       end
->>>>>>> Stashed changes:lib/gmap/core.rb
     end
 
     private
@@ -132,13 +127,11 @@ module Gmap
         when /Path \d+:\s+query\s+(\d+)--(\d+)\s+\(\d+ bp\)\s+=>/
           res.q_start = "#{$1}".to_i
           res.q_end = "#{$2}".to_i
-        when /Genomic pos:.*\((.*)\sstrand\)/
-          if res.strand.nil?	
-            if "#{$1}"=~/\+/ then
-              res.strand = 1
-            else 
-              res.strand = -1
-            end
+        when /Genomic pos:.*\((.*)\sstrand\)/	
+          if "#{$1}"=~/\+/ then
+            res.strand = 1
+          else 
+            res.strand = -1
           end
         when /Accessions:\s+(.*):(.*)--(.*)\s+\(out of.*/
             res.target = "#{$1}"
@@ -175,7 +168,7 @@ module Gmap
             res.set_maps
           end	
         end
-      end
+      end  
       res
     end
 
