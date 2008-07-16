@@ -83,10 +83,10 @@ module Gmap
       @io.each_line do |l|
         if l=~/>>>.*/ 
             # this avoid taking a splitted alignment line as the start of a new sequence
-        elsif l=~/>(\S+)\s/ and !start then 
+        elsif l=~/>(\d+|\w+)\s/ and !start then 
           start = true
           query = "#{$1}"                          
-        elsif l=~/>(\S+)\s/ and start then
+        elsif l=~/>(\d+|\w+)\s/ and start then
           res.query = query
           all_results << res.dup if res.target != nil
           query = "#{$1}"
@@ -160,15 +160,15 @@ module Gmap
         when /Amino acid changes: (.*)/	
           aa = "#{$1}"
           res.aa_change = aa if aa.to_s=~/\w+/
-        when /  Alignment for path \d+:/
+        when /Alignment for path \d+:/
           res.set_search
         when /\s+Map hits for path \d+\s+\(1\):/
           res.set_maps
         when /.*gene_maps\s+\S+:(\d+)..(\d+)\s+(\d+)/	
           if res.maps then	
-            res.gene_start = "#{$1}".to_f
-            res.gene_end = "#{$2}".to_f
-            res.gene_id = "#{$3}".to_f
+            res.gene_start = "#{$1}".to_i
+            res.gene_end = "#{$2}".to_i
+            res.gene_id = "#{$3}".to_i
             res.set_maps
           end	
         end
@@ -180,9 +180,9 @@ module Gmap
 
     def get_aln(res,l)
       
-      if l =~/.*:\d+\s[A|T|C|G].+/ then
+      if l =~/.*:\d+\s[A|T|C|G].+.*/ then
         res.aln << l+"\n"
-        res.set_save        
+        res.set_save      
       end
 
       if res.c >= 1 and res.c < 3 then

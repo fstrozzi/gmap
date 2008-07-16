@@ -119,10 +119,9 @@ class GmapTest < Test::Unit::TestCase
     assert_match(/R  A  P  R  R  A  G           E  G  R  G  \*/,seq[2].aln)
     assert_match(/CGCGCACCTCGGCGTGCAGGTG\.\.\.CAGGTGAAGGGAGAGGATGA/,seq[2].aln)
     assert_match(/CGCGCACCTCGGCGTGCAG  2500   GTGAAGGGAGAGGATGA/,seq[2].aln)
-    assert_equal 59868962,seq[2].gene_start
-    assert_equal 60041116,seq[2].gene_end
-    assert_equal 538371,seq[2].gene_id
-    puts seq[2].aln
+    assert_equal 57912718,seq[2].gene_start
+    assert_equal 57926714,seq[2].gene_end
+    assert_equal 507939,seq[2].gene_id
   end
   
 end

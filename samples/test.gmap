@@ -131,19 +131,18 @@ Maps:
 	Amino acid changes: 
 
 Alignments:
-	Alignment for path 1:
+	Alignment for path 3:
 
-	  -chr22:57926444-57926426  (1-19)   100% ->   ...2500...
 	  -chr22:57923925-57923909  (20-36)   100%
 
 	               0     .    :    .    :    .    :    .    :    .
 	aa.g           1 R  A  P  R  R  A  G           E  G  R  G  *  
 	 -chr22:57926444 CGCGCACCTCGGCGTGCAGGTG...CAGGTGAAGGGAGAGGATGA
-	                 |||||||||||||||||||>>>...>>>|||||||||||||||||
+	                 ||||||||||||||||||||||||||||||||||||
 	               1 CGCGCACCTCGGCGTGCAG  2500   GTGAAGGGAGAGGATGA
 	aa.c           1 R  A  P  R  R  A  G           E  G  R  G  *  
 
 Maps:
-  Map hits for path 1 (1):
+  Map hits for path 3 (1):
     gene_maps   chr10:57912718..57926714        507939
 
