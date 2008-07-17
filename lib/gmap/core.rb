@@ -158,15 +158,10 @@ module Gmap
           res.aa_change = aa if aa.to_s=~/\w+/
         when /Alignment for path \d+:/
           res.set_search
-        when /\s+Map hits for path \d+\s+\(1\):/
-          res.set_maps
         when /.*gene_maps\s+\S+:(\d+)..(\d+)\s+(\d+)/	
-          if res.maps then	
             res.gene_start = "#{$1}".to_i
             res.gene_end = "#{$2}".to_i
-            res.gene_id = "#{$3}".to_i
-            res.set_maps
-          end	
+            res.gene_id = "#{$3}".to_i	
         end
       end  
       res
@@ -205,7 +200,7 @@ module Gmap
   class Result 
 
   	attr_accessor :query, :target, :q_start, :q_end, :start, :end, :strand ,:exons, :coverage, :perc_identity, :indels, :mismatch, :aa_change, :gene_start, :gene_end, :gene_id, :aln
-    attr_reader :search_aln, :c, :save_aln, :maps
+    attr_reader :search_aln, :c, :save_aln
     
     def initialize
         clear
@@ -257,14 +252,6 @@ module Gmap
 	  
 	  def count
       @c += 1
-    end
-    
-    def set_maps
-      if @maps then
-        @maps = false
-      else
-        @maps = true
-      end
     end
 
   protected
