@@ -6,7 +6,7 @@ s.email = "francesco.strozzi@gmail.com"
 s.homepage = "http://github.com/fstrozzi/gmap"
 s.platform = Gem::Platform::RUBY 
 s.summary = "Ruby Class to manage Gmap output" 
-candidates = Dir.glob("{doc,samples,lib,tests}/**/*") 
+candidates = ['doc/**/*','samples/**/*','lib/**/*','tests/**/*'] 
 s.files = candidates.delete_if do |item| 
 	item.include?("git") || item.include?("rdoc") 
 end 
